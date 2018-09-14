@@ -1,6 +1,6 @@
 // Psuedo code for our Parker App
 
-//Build search box that
+//Build search box that user can add location
 
 //Grab users location and store input (variable)
 
