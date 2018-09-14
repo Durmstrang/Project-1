@@ -1,7 +1,11 @@
 // Psuedo code for our Parker App
 
+<<<<<<< HEAD
 // Build search box as a splash page in the main index.html
     // this should take advantage of the algolia JS library which will autofill what the user is typing
+=======
+//Build search box that user can add location
+>>>>>>> 4974c5b824e701495506394777ee6133f44b79e6
 
 // Grab users location and store input (variable) in firebase
     /* from firebase we can pull the state info and use Bing/Mapquest API to generate a map, then use the

@@ -1,0 +1,12 @@
+.masthead {
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 35 rem;
+    padding: 15 rem;
+    background: url("Assets/img/park-bg.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+}
