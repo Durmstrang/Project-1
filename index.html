@@ -1,10 +1,9 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parker - The National Parks Location Ranger</title>
+    <title>MapQuest Test</title>
 
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -22,43 +21,85 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="Assets/css/style.css">
 
+    <!-- MapQuest Links -->
+    <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css"/>
+
+
 </head>
 <body>
 
     <section id="landing" class="landing-section masthead">
         <div class="container d-flex h-100 align-items-center">
-            <div class="mx-auto text-center">
-                <h1 class="mx-auto my-0 text-uppercase">Parker</h1>
-                <h2 class="text-white-50 mx-auto mt-2 mb-5">A free, open-source National Parks finder</h2>
+            <div class="mx-auto py-5 text-center">
+                <h1 class="text-uppercase">Parker</h1>
+                <h2 class="text-white-50">A free, open-source National Parks finder</h2>
                 <form>
                     <div class="form-group">
                         <input type="text" id="location-input">
-                        <button type="submit"><i class="fas fa-search"></i></button>
+                        <button type="submit" id="submitBtn"><i class="fas fa-search"></i></button>
                     </div>
                 </form>
             </div>
         </div>
+        <br>
+        <hr style="width:75%">
+        <br>
+        <div class="col-12">
+            <div class="card card-default">
+                <div class="card-body m-0">
+                    <div id="map" style="width: 100%; height: 500px;"></div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <hr style="width:75%">
+        <br>
+        <div class="col-lg-12">
+                <div class="card card-default">
+                    <div class="card-header text-center h3">
+                    Parks Near <span id="location-query"></span> :
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped text-center">
+                            <thead>
+                                <th scope="col">Park Name</th>
+                                <th scope="col">City</th>
+                                <th scope="col">State</th>
+                            </thead>
+                            <tbody id="table-body">
+            
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
     </section>
 
-    
-=======
-<!doctype <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Parker</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Algolia Search JS Library -->
-    <script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
-    <!-- Our own CSS -->
-    <link rel="stylesheet" type="text/css" media="screen" href="Assets/css/style.css" />
-    <!-- Our own JS -->
-    <script src="Assets/javascript/app.js"></script>
-</head>
-<body>
-    <h1>Parker</h1>
-    <h4>US National Park Finder</h4>
->>>>>>> f6a9cdf7c4da38b057605f5d74eb2e253de769aa
+    <script type="text/javascript">
+        window.onload = function() {
+          L.mapquest.key = 'q3aVXF4M4Hq6z0fi3Ithx6UFbnKa4aRIn45OIpKo';
+  
+          var lat = 37.7749
+          var long = -122.4194
+          
+          var map = L.mapquest.map('map', {
+            center: [lat, long],
+            layers: L.mapquest.tileLayer('map'),
+            zoom: 12
+          });
+  
+          map.addControl(L.mapquest.control());
+        }
+
+    $("#submitBtn").on("click", function(event) {
+        event.preventDefault();
+        var locationInput = $("#location-input").val().trim()
+        console.log("location: " + locationInput)
+
+    })
+
+      </script>
+
 </body>
 </html>
