@@ -33,4 +33,6 @@ $("#submitBtn").on("click", function(event) {
 (Location, operating hours, entrance fee/pass information)
     --stretch goal is to add photos, possibly from instagram and/or add weather info? */
 
+
 // create a toggle menu in the top right of the page to show previous searches
+
