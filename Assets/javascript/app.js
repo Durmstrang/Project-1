@@ -1,6 +1,19 @@
 // Psuedo code for our Parker App
+$(document).ready(function(){
 
+ var testArray = ["1","2", "3"]
+ var userInput = [ ]
 //Build search box that user can add location
+// This function handles events where a animal button is clicked
+$("#fas fa-search").on("click", function(event) {
+    event.preventDefault();
+    // This line grabs the input from the textbox
+    var testArray = $(".location-input").val().trim();
+    console.log(".location4-input")
+    // Adding what user types from the textbox to our array
+    testArray.push(userInput)
+
+  });
 
 // Grab users location and store input (variable) in firebase
     /* from firebase we can pull the state info and use Bing/Mapquest API to generate a map, then use the
@@ -14,3 +27,4 @@
 // create a toggle menu in the top right of the page to show previous searches
 
 //test push
+})
