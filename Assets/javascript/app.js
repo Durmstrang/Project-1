@@ -1,8 +1,4 @@
 // Psuedo code for our Parker App
-<div class="form-group">
-                        <input type="text" id="location-input">
-                        <button type="submit"><i class="fas fa-search"></i></button>
-                    </div> */</div>
 
 // grab user's location input 
 function renderParks(list) {
@@ -10,27 +6,14 @@ function renderParks(list) {
 
     // render our todos to the page
     for (var i = 0; i < list.length; i++) {
-      // Create a new variable that will hold a "<p>" tag.
-      // Then set the to-do "value" as text to this <p> element.
-      var newP = $("<p>");
-      newP.text(list[i]);
+        // Create a new variable that will hold a "<p>" tag.
+        // Then set the to-do "value" as text to this <p> element.
+        var newP = $("<p>");
+        newP.text(list[i]);
 
-      // Create a button with unique identifiers based on what number it is in the list. Again use jQuery to do this.
-      // Give your button a data attribute called data-park-info and a class called "checkbox".
-      // Lastly add a checkmark inside.
-
-      var newBtn = $("<button>");
-
-      newBtn.attr("data-park-info", i);
-      newBtn.addClass("checkbox");
-      newBtn.text("✓");
-
-      // Append the button to the to do item
-      newP = newP.prepend(newBtn);
-
-      // Add the button and to do item to the park-list div
-      $("#park-list").append(newP);
-    }
+        // Add the button and to do item to the park-list div
+        $("#park-list").append(newP);
+        }
   }
 
   $("#add-to-do").on("click", function(event) {
@@ -47,33 +30,18 @@ function renderParks(list) {
 
     // Save the todos into localstorage.
     // We need to use JSON.stringify to turn the list from an array into a string
-    localStorage.setItem("todolist", JSON.stringify(list));
+    localStorage.setItem("park-info", JSON.stringify(list));
 
     // Clear the textbox when done
     $("#to-do").val("");
   });
 
-  // When a user clicks a check box then delete the specific content
-  $(document).on("click", ".checkbox", function() {
-    // Get the number of the button from its data attribute and hold in a variable called  toDoNumber.
-    var toDoNumber = $(this).attr("data-park-info");
 
-    // Deletes the item marked for deletion
-    list.splice(toDoNumber, 1);
-
-    // Update the todos on the page
-    renderParks(list);
-
-    // Save the todos into localstorage.
-    // We need to use JSON.stringify to turn the list from an array into a string
-    localStorage.setItem("todolist", JSON.stringify(list));
-  });
-
-  // Load the todos from localstorage.
+  // Load the park list from localstorage.
   // We need to use JSON.parse to turn the string retrieved  from an array into a string
-  var list = JSON.parse(localStorage.getItem("todolist"));
+  var list = JSON.parse(localStorage.getItem("park-info"));
 
-  // Checks to see if the todolist exists in localStorage and is an array currently
+  // Checks to see if the park-info exists in localStorage and is an array currently
   // If not, set a local list variable to an empty array
   // Otherwise list is our current list of todos
   if (!Array.isArray(list)) {
