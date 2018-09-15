@@ -22,6 +22,10 @@
     <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
     <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css"/>
 
+    <!-- Algolia (autofill JS library) Links-->
+    <script src="https://cdn.jsdelivr.net/npm/algoliasearch@3/dist/algoliasearchLite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/algoliasearch-helper@2.26.1/dist/algoliasearch.helper.min.js"></script>
+
 </head>
 <body>
 
@@ -72,27 +76,8 @@
             </div>
     </section>
    
-    <script type="text/javascript">
-        window.onload = function() {
-          L.mapquest.key = 'q3aVXF4M4Hq6z0fi3Ithx6UFbnKa4aRIn45OIpKo';
-  
-          var lat = 37.7749
-          var long = -122.4194
-          
-          var map = L.mapquest.map('map', {
-            center: [lat, long],
-            layers: L.mapquest.tileLayer('map'),
-            zoom: 12
-          });
-  
-          map.addControl(L.mapquest.control());
-        }
-     $("#submitBtn").on("click", function(event) {
-        event.preventDefault();
-        var locationInput = $("#location-input").val().trim()
-        console.log("location: " + locationInput)
-     })
-       </script>
-       
+    <!-- My JavaScript -->
+    <script src="Assets/javascript/app.js"></script>        
+        
  </body>
 </html>

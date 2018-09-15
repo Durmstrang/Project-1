@@ -1,61 +1,76 @@
 // Psuedo code for our Parker App
 
-// grab user's location input 
-function renderParks(list) {
-    $("#park-list").empty(); // empties out the html
+// The below code fills in the first row of the table
+var userInput = "";
+var queryURL = "https://www.omdbapi.com/?t=" + userInput + "&y=&plot=short&apikey=04fe08d12c90e98f7e8cfd4e6f903a2c";
 
-    // render our todos to the page
-    for (var i = 0; i < list.length; i++) {
-        // Create a new variable that will hold a "<p>" tag.
-        // Then set the to-do "value" as text to this <p> element.
-        var newP = $("<p>");
-        newP.text(list[i]);
+$.ajax({
+  url: queryURL,
+  method: "GET"
+}).then(function(response) {
+  // Get reference to existing tbody element, create a new table row element
+  var tBody = $("tbody");
+  var tRow = $("<tr>");
 
-        // Add the button and to do item to the park-list div
-        $("#park-list").append(newP);
-        }
-  }
+  // Methods run on jQuery selectors return the selector they we run on
+  // This is why we can create and save a reference to a td in the same statement we update its text
+  var titleTd = $("<td>").text(response.Title);
+  var yearTd = $("<td>").text(response.Year);
+  var actorsTd = $("<td>").text(response.Actors);
+  // Append the newly created table data to the table row
+  tRow.append(titleTd, yearTd, actorsTd);
+  // Append the table row to the table body
+  tBody.append(tRow);
+});
 
-  $("#add-to-do").on("click", function(event) {
+
+// MAPQUEST STUFF----------------------------------------------------------------------------------------------------
+window.onload = function() {
+    L.mapquest.key = 'q3aVXF4M4Hq6z0fi3Ithx6UFbnKa4aRIn45OIpKo';
+  
+    var lat = 37.7749
+    var long = -122.4194
+    
+    var map = L.mapquest.map('map', {
+        center: [lat, long],
+        layers: L.mapquest.tileLayer('map'),
+        zoom: 12
+    });
+
+    map.addControl(L.mapquest.control());
+}
+
+// CAPTURE DATA FROM SUBMIT BUTTON----------------------------------------------------------------------------------
+$("#submitBtn").on("click", function(event) {
     event.preventDefault();
+    var locationInput = $("#location-input").val().trim()
+    console.log("location: " + locationInput)
 
-    // Get the to-do "value" from the textbox and store it as a variable
-    var toDoTask = $("#to-do").val().trim();
+    // Configure Algolia
+    var applicationID = 'latency';
+    var apiKey = '04fe08d12c90e98f7e8cfd4e6f903a2c';
+    var indexName = 'bestbuy';
+    var client = algoliasearch(applicationID, apiKey);
+    var helper = algoliasearchHelper(client, indexName); 
+ 
+    helper.search();
 
-    // Adding our new todo to our local list variable and adding it to local storage
-    list.push(toDoTask);
+    helper.on('result', function(content) {
+        renderHits(content);
+    });
+      
+    function renderHits(content) {
+        $('#container').html(JSON.stringify(content, null, 2));
+    }
 
-    // Update the todos on the page
-    renderParks(list);
-
-    // Save the todos into localstorage.
-    // We need to use JSON.stringify to turn the list from an array into a string
-    localStorage.setItem("park-info", JSON.stringify(list));
-
-    // Clear the textbox when done
-    $("#to-do").val("");
-  });
-
-
-  // Load the park list from localstorage.
-  // We need to use JSON.parse to turn the string retrieved  from an array into a string
-  var list = JSON.parse(localStorage.getItem("park-info"));
-
-  // Checks to see if the park-info exists in localStorage and is an array currently
-  // If not, set a local list variable to an empty array
-  // Otherwise list is our current list of todos
-  if (!Array.isArray(list)) {
-    list = [];
-  }
-
-  // render our todos on page load
-  renderParks(list);
-
-// We need to use JSON.parse to turn the string retrieved  from an array into a string
-var list = JSON.parse(localStorage.getItem("parkList"));
-
-// incorporate algolia library
-
+    function renderHits(content) {
+        $('#container').html(function() {
+            return $.map(content.hits, function(hit) {
+                return '<li>' + hit.name + '</li>';
+            });
+        });
+    }
+});
 
 
 // Grab users location and store input (variable) in firebase
