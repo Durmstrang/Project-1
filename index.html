@@ -12,9 +12,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     
-    <!-- Firebase Reference -->
-    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
-    
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
@@ -30,6 +27,7 @@
 <body>
 
     <section id="landing" class="landing-section masthead">
+
         <div class="container d-flex h-100 align-items-center">
             <div class="mx-auto py-5 text-center">
                 <h1 class="text-uppercase">Parker</h1>
@@ -92,6 +90,7 @@
           map.addControl(L.mapquest.control());
         }
 
+
     $("#submitBtn").on("click", function(event) {
         event.preventDefault();
         var locationInput = $("#location-input").val().trim()
@@ -102,4 +101,5 @@
       </script>
 
 </body>
+
 </html>
