@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parker - The National Parks Location Ranger</title>
+    <title>MapQuest Test</title>
 
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -22,11 +22,13 @@
     <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
     <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css"/>
 
+
 </head>
 <body>
 
     <section id="landing" class="landing-section masthead">
-       <div class="container d-flex h-100 align-items-center">
+
+        <div class="container d-flex h-100 align-items-center">
             <div class="mx-auto py-5 text-center">
                 <h1 class="text-uppercase">Parker</h1>
                 <h2 class="text-white-50">A free, open-source National Parks finder</h2>
@@ -71,7 +73,7 @@
                 </div>
             </div>
     </section>
-   
+
     <script type="text/javascript">
         window.onload = function() {
           L.mapquest.key = 'q3aVXF4M4Hq6z0fi3Ithx6UFbnKa4aRIn45OIpKo';
@@ -87,12 +89,17 @@
   
           map.addControl(L.mapquest.control());
         }
-     $("#submitBtn").on("click", function(event) {
+
+
+    $("#submitBtn").on("click", function(event) {
         event.preventDefault();
         var locationInput = $("#location-input").val().trim()
         console.log("location: " + locationInput)
-     })
-       </script>
-       
- </body>
+
+    })
+
+      </script>
+
+</body>
+
 </html>
