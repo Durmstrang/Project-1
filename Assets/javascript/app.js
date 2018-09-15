@@ -5,11 +5,11 @@ $(document).ready(function(){
  var userInput = [ ]
 //Build search box that user can add location
 // This function handles events where a animal button is clicked
-$("#fas fa-search").on("click", function(event) {
+$("#submit").on("click", function(event) {
     event.preventDefault();
     // This line grabs the input from the textbox
     var testArray = $(".location-input").val().trim();
-    console.log(".location4-input")
+    console.log(".location-input")
     // Adding what user types from the textbox to our array
     testArray.push(userInput)
 
