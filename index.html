@@ -3,31 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MapQuest Test</title>
+    <title>Parker: National Park Finder</title>
 
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
     <!-- Bootstrap CDN-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-
     <!-- Custom CSS -->
     <link rel="stylesheet" href="Assets/css/style.css">
-
-    <!-- MapQuest Links -->
-    <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
+    <!-- MapQuest CSS -->
     <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css"/>
-
-<<<<<<< HEAD
-    <!-- Algolia (autofill JS library) Links-->
-    <script src="https://cdn.jsdelivr.net/npm/algoliasearch@3/dist/algoliasearchLite.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/algoliasearch-helper@2.26.1/dist/algoliasearch.helper.min.js"></script>
-=======
->>>>>>> d15eb00e847215ed022fac9062b937ddccff4e4a
 
 </head>
 <body>
@@ -39,9 +27,9 @@
                 <h1 class="text-uppercase">Parker</h1>
                 <h2 class="text-white-50">A free, open-source National Parks finder</h2>
                 <form>
-                    <div class="form-group">
-                        <input type="text" id="location-input">
-                        <button type="submit" id="submitBtn"><i class="fas fa-search"></i></button>
+                    <div id="input-container">
+                        <input type="search-input" id="address-input" placeholder="City and State?">
+                        <button type="submit" id="submit-input">Search</button>
                     </div>
                 </form>
             </div>
@@ -79,41 +67,13 @@
                 </div>
             </div>
     </section>
-<<<<<<< HEAD
    
-    <!-- My JavaScript -->
+    <!-- Angolia JS -->
+    <script src="https://cdn.jsdelivr.net/npm/places.js@1.10.0"></script>
+    <!-- MapQuest JS -->
+    <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
+    <!-- Our JS -->
     <script src="Assets/javascript/app.js"></script>        
         
  </body>
-=======
-
-    <script type="text/javascript">
-        window.onload = function() {
-          L.mapquest.key = 'q3aVXF4M4Hq6z0fi3Ithx6UFbnKa4aRIn45OIpKo';
-  
-          var lat = 37.7749
-          var long = -122.4194
-          
-          var map = L.mapquest.map('map', {
-            center: [lat, long],
-            layers: L.mapquest.tileLayer('map'),
-            zoom: 12
-          });
-  
-          map.addControl(L.mapquest.control());
-        }
-
-
-    $("#submitBtn").on("click", function(event) {
-        event.preventDefault();
-        var locationInput = $("#location-input").val().trim()
-        console.log("location: " + locationInput)
-
-    })
-
-      </script>
-
-</body>
-
->>>>>>> d15eb00e847215ed022fac9062b937ddccff4e4a
 </html>
