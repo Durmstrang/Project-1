@@ -21,6 +21,7 @@ var placesAutocomplete = places({
   });
 
 
+
 /* CAPTURE DATA FROM SUBMIT BUTTON----------------------------------------------------------------------------------
 $("#submitBtn").on("click", function(event) {
     event.preventDefault();
