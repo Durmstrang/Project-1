@@ -13,8 +13,18 @@ window.onload = function() {
 
     map.addControl(L.mapquest.control());
 }
+// This function is what prevents the page from reloading when submit button is clicked (LS)
+document.onload = function(){
+    // This function handles events where the submit button is clicked
+$("#submit").on("click", function(event) {
+    event.preventDefault();
+  }
 
 
+
+
+
+}
 // ALGOLIA STUFF----------------------------------------------------------------------------------------------------
 var placesAutocomplete = places({
     container: document.querySelector('#address-input')
