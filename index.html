@@ -151,7 +151,6 @@
             method: "GET"
         }).then(function(response) {
             for (var i = 0; i < response.data.length; i++) {
-                console.log(response)
                 var newRow = $("<tr>")
                 var park = response.data[i]
                 $("#table-body").append(newRow)
@@ -171,6 +170,8 @@
                 $(newRow).append(newColumn3)
                 var parkState = park.states
                 $(newColumn3).append(parkState)
+                // Super ugly way to get lat long splits to store as variables
+                // Scope may pose an issue
                 var fullString = JSON.stringify(park.latLong)
                 var firstSplit = fullString.split(",")
                 var latSplit = firstSplit[0].split(":")
@@ -201,19 +202,6 @@
             layers: L.mapquest.tileLayer('map'),
             zoom: 8
         }); map.addControl(L.mapquest.control());
-    }
-    
-    // var renderMarkers = function (lat, long, name) {
-    //     L.mapquest.textMarker([lat, long], {
-    //         text: name,
-    //         position: 'right',
-    //         type: 'marker',
-    //         icon: {
-    //             primaryColor: '#333333',
-    //             secondaryColor: '#333333',
-    //             size: 'sm'
-    //         }
-    //         }).addTo(map)                
     }
     
     $("#submitBtn").on("click", function(event) {
