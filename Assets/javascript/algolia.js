@@ -15,30 +15,29 @@ helper.on('result', function(content) {
 
 
 
+// // example code of how to pull data from the JSON response (in this case, BestBuy products)
+// function renderHits(content) {
+//     $('#container').html(JSON.stringify(content, null, 2));
+// }
 
-function renderHits(content) {
-    $('#container').html(JSON.stringify(content, null, 2));
-}
+// var applicationID = 'latency';
+// var apiKey = '04fe08d12c90e98f7e8cfd4e6f903a2c';
+// var indexName = 'bestbuy';
 
-var applicationID = 'latency';
-var apiKey = '04fe08d12c90e98f7e8cfd4e6f903a2c';
-var indexName = 'bestbuy';
+// helper.search();
 
-helper.search();
-
-helper.on('result', function(content) {
-    renderHits(content);
-});
+// helper.on('result', function(content) {
+//     renderHits(content);
+// });
     
-function renderHits(content) {
-    $('#container').html(JSON.stringify(content, null, 2));
-}
+// function renderHits(content) {
+//     $('#container').html(JSON.stringify(content, null, 2));
+// }
 
-function renderHits(content) {
-    $('#container').html(function() {
-        return $.map(content.hits, function(hit) {
-            return '<li>' + hit.name + '</li>';
-        });
-    });
-}
-});
+// function renderHits(content) {
+//     $('#container').html(function() {
+//         return $.map(content.hits, function(hit) {
+//             return '<li>' + hit.name + '</li>';
+//         });
+//     });
+// }
