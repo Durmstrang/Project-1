@@ -170,13 +170,21 @@
                 var newColumn3 = $("<th scope='col'>")
                 $(newRow).append(newColumn3)
                 var parkState = park.states
-                $(newColumn3).append(parkState)                
+                $(newColumn3).append(parkState)
+                var fullString = JSON.stringify(park.latLong)
+                var firstSplit = fullString.split(",")
+                var latSplit = firstSplit[0].split(":")
+                var longSplit = firstSplit[1].split(":")
+                var parkLat = latSplit[1]
+                var parkLong = longSplit[1].slice(0,-1)
+                console.log(parkLat)
+                console.log(parkLong)
+                
             }
         })
     }
-
-
-
+    
+    // HTML 5 geolocation code - yet to be implemented as of 9/19
     var geoLocation = function() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
@@ -185,63 +193,50 @@
         }
     }
     
+    // Function for initializing mapquest map based on lat, long into the #map div
     var loadMap = function(lat, long) {
         L.mapquest.key = 'q3aVXF4M4Hq6z0fi3Ithx6UFbnKa4aRIn45OIpKo';
-        
         var map = L.mapquest.map('map', {
             center: [lat, long],
             layers: L.mapquest.tileLayer('map'),
             zoom: 8
-        });
-        
-        map.addControl(L.mapquest.control());
+        }); map.addControl(L.mapquest.control());
     }
     
-    displayParks()
-    loadMap(41.26093905,-81.57116722)
-    // loadMap(81.26093905,-41.57116722)
-
-    // $("#stateSelection").change(function(){
-    //     var stateObject = $(this);
-    //     var stateLat =  stateObject.find(":selected").data("lat")
-    //     var stateLong =  stateObject.find(":selected").data("long")
-    //     console.log(stateLat)
-    //     console.log(stateLong)
-    // })
-
+    // var renderMarkers = function (lat, long, name) {
+    //     L.mapquest.textMarker([lat, long], {
+    //         text: name,
+    //         position: 'right',
+    //         type: 'marker',
+    //         icon: {
+    //             primaryColor: '#333333',
+    //             secondaryColor: '#333333',
+    //             size: 'sm'
+    //         }
+    //         }).addTo(map)                
+    }
+    
     $("#submitBtn").on("click", function(event) {
         event.preventDefault()
         $("#table-body").empty()
         var y = $("#stateSelection option:selected").val();
         var stateLat =  $("#stateSelection option:selected").attr("data-lat")
         var stateLong =  $("#stateSelection option:selected").attr("data-long")
-        console.log(y)
-        console.log(stateLat)
-        console.log(stateLong)
+        // console.log(y)
+        // console.log(stateLat)
+        // console.log(stateLong)
         displayParks(y)
         map.remove()
         var mapDiv = $('<div id="map" style="width: 100%; height: 500px;">')
         $("#map-home").append(mapDiv)
         loadMap(stateLat, stateLong)
-
-
         })
+    
+    // Initial Load
+        displayParks()
+        loadMap(41.26093905,-81.57116722)
+        renderMarkers(41.5441665649414,-83.6975021362305,"Home")
         
-
-    // $("#submitBtn").on("click", function(event) {
-    //     event.preventDefault()
-    //     $("#table-body").empty()
-    //     // var y = document.getElementById("stateSelection").value;
-    //     $("#stateSelection").change(function() {
-    //         var stateObject = $(this);
-    //         var stateValue = stateObject.val()
-    //         var stateLat = stateObject.find(':selected').data('lat')
-    //         var stateLong = stateObject.find(':selected').data('long')
-    //         displayParks(stateValue)
-    //         loadMap(stateLat,stateLong)
-    //     })
-
-
     // Syntax for text markers
 // https://developer.mapquest.com/documentation/mapquest-js/v1.3/l-mapquest-text-marker/
 
