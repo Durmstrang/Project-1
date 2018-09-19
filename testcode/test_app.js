@@ -86,7 +86,15 @@
 })();
 
 
-// fill div with ID "park-info" with the National Park JSON content (just to get it to work)
+// grab the info from the click event
+$("#input-map").on("click", function (event) {
+    event.preventDefault();
+    var locationInput = $("#input-map").val().trim()
+    console.log("location: " + locationInput)
+})
+
+
+// fill HTML element with ID "park-info" with JSON data
 function showParkInfo() {
 
     var stateCode = $(this).attr("data-state");
