@@ -2,8 +2,8 @@
 window.onload = function() {
     L.mapquest.key = 'q3aVXF4M4Hq6z0fi3Ithx6UFbnKa4aRIn45OIpKo';
   
-    var lat = 37.7749
-    var long = -122.4194
+    var lat = 44
+    var long = -94
     
     var map = L.mapquest.map('map', {
         center: [lat, long],
@@ -12,13 +12,25 @@ window.onload = function() {
     });
 
     map.addControl(L.mapquest.control());
-}
 
-// document.onload = function(){
-//     // This function handles events where the submit button is clicked
-// $("#submit").on("click", function(event) {
-//     event.preventDefault();
-//   }
+   
+    
+        // This function handles events where the submit button is clicked
+ $("#submit").on("click", function(event) {
+    event.preventDefault();
+    
+   });
+}
+// var clickState = document.getElementById("simpleStateForm").value 
+// console.log(clickState)
+
+var al = $("#al").attr("value");
+console.log(al);
+
+
+
+
+
   
 
 
@@ -31,6 +43,7 @@ var placesAutocomplete = places({
     container: document.querySelector('#address-input')
   });
 
+console.log("SOS");
 
 
 /* CAPTURE DATA FROM SUBMIT BUTTON----------------------------------------------------------------------------------
