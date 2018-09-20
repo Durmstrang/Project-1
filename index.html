@@ -129,6 +129,9 @@
                     </div>
                 </div>
             </div>
+            <br>
+            <hr style="width:75%">
+            <br>
     </section>
    
     <!-- Angolia JS -->
@@ -151,7 +154,7 @@
             method: "GET"
         }).then(function(response) {
             for (var i = 0; i < response.data.length; i++) {
-                var newRow = $("<tr>")
+                var newRow = $("<tr data-toggle='collapse' data-target=>")
                 var park = response.data[i]
                 $("#table-body").append(newRow)
                 var newColumn = $("<th scope='col'>")
@@ -170,16 +173,16 @@
                 $(newRow).append(newColumn3)
                 var parkState = park.states
                 $(newColumn3).append(parkState)
-                // Super ugly way to get lat long splits to store as variables
-                // Scope may pose an issue
-                var fullString = JSON.stringify(park.latLong)
-                var firstSplit = fullString.split(",")
-                var latSplit = firstSplit[0].split(":")
-                var longSplit = firstSplit[1].split(":")
-                var parkLat = latSplit[1]
-                var parkLong = longSplit[1].slice(0,-1)
-                console.log(parkLat)
-                console.log(parkLong)
+
+                // 
+                var parkLat = ""
+                var parkLong = ""
+                if (park.latLong) {
+                    var firstSplit = park.latLong.split(", ")
+
+                    parkLat = firstSplit[0].replace("lat:", "")
+                    parkLong = firstSplit[1].replace("long:", "")
+                }
                 
             }
         })
