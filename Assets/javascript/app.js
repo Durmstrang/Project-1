@@ -1,14 +1,65 @@
-// Psuedo code for our Parker App
+// MAPQUEST STUFF----------------------------------------------------------------------------------------------------
+window.onload = function() {
+    L.mapquest.key = 'q3aVXF4M4Hq6z0fi3Ithx6UFbnKa4aRIn45OIpKo';
+  
+    var lat = 44
+    var long = -94
+    
+    var map = L.mapquest.map('map', {
+        center: [lat, long],
+        layers: L.mapquest.tileLayer('map'),
+        zoom: 12
+    });
 
-//Build search box that user can add location
+    map.addControl(L.mapquest.control());
+
+   
+    
+        // This function handles events where the submit button is clicked
+ $("#submit").on("click", function(event) {
+    event.preventDefault();
+    
+   });
+}
+// var clickState = document.getElementById("simpleStateForm").value 
+// console.log(clickState)
+
+var al = $("#al").attr("value");
+console.log(al);
+
+
+
+
+
+  
+
+
+
+
+
+// }
+// ALGOLIA STUFF----------------------------------------------------------------------------------------------------
+var placesAutocomplete = places({
+    container: document.querySelector('#address-input')
+  });
+
+console.log("SOS");
+
+
+/* CAPTURE DATA FROM SUBMIT BUTTON----------------------------------------------------------------------------------
+$("#submitBtn").on("click", function(event) {
+    event.preventDefault();
+    var locationInput = $("#location-input").val().trim()
+    console.log("location: " + locationInput) */
+
 
 // Grab users location and store input (variable) in firebase
-    /* from firebase we can pull the state info and use Bing/Mapquest API to generate a map, then use the
-    National Park Service API to populate "pins" on that map of state parks in the user's state 
-        --our stretch goal is to change this to show all national parks within 50 miles from it */
+    /*  1) use Algolia to autofill the city, state.
+        2) use Mapquest API to generate a map of the state. 
+        3) use the city, state info to run the state through the National Park Service API.
+        4) populate "pins" on the Mapquest map of state parks in the user's state 
 
 /* Once the user click ons a "pin", show some handpicked data from the park's webpage 
 (Location, operating hours, entrance fee/pass information)
-    --stretch goal is to add photos, possibly from instagram and/or add weather info? */
-
-// create a toggle menu in the top right of the page to show previous searches
+    --stretch goal: is to show all national parks within 50 miles instead of just in 
+    that state. Also add photos, possibly from instagram and/or add weather info? */
