@@ -9,6 +9,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    font-family: 'Arvo', serif;
 }
 
 .park-image {
@@ -27,13 +28,13 @@ h1 {
     color: #373F3D;
     }
 
-h2 {
-    font-family: "GT Pressura Mono", "Roboto Mono", monospace;
-    font-size: 28px;
-    font-style: normal;
-    font-weight: 400;
-    letter-spacing: normal;
-    line-height: 28px;
-    text-transform: none;
-    color: #373F3D;
+#cana {
+        font-family: "GT Pressura Mono", "Roboto Mono", monospace;
+        font-size: 28px;
+        font-style: normal;
+        font-weight: 400;
+        letter-spacing: normal;
+        line-height: 28px;
+        text-transform: none;
+        color: #373F3D;
 }
