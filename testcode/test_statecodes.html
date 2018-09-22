@@ -10,7 +10,8 @@
     <!-- Bootstrap CDN-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <!-- MapQuest CSS -->
+    <!-- MapQuest CSS & JS -->
+    <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
     <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css"/>
 
 </head>
@@ -22,17 +23,17 @@
             <div class="mx-auto py-5 text-center">
                 <h1 class="text-uppercase">Parker</h1>
                 <h2 class="text-white-50">A free, open-source National Parks finder</h2>
-                
-                <div class="stateList">
-                    <form id="simpleStateForm">
-                        Select a State:
-                        <select name="state" id="state">
-                            <option value="">None Selected</option>
-                        </select>
-                        <button type="submit" id="submit">Submit</button>
-                    </form>
-                </div>
-
+                <form>
+                    <div id="input-container">
+                        <div class="stateList">
+                            <form id="simpleStateForm">
+                                Select a State:
+                                <select name="stateSelect" id="stateSelection"></select>
+                                <button type="submit" id="submitBtn">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
         <br>
@@ -54,10 +55,10 @@
                     Parks Near <span id="location-query"></span> :
                     </div>
                     <div class="card-body">
-                        <table class="table table-striped text-center">
+                        <table class="table table-hover text-center">
                             <thead>
                                 <th scope="col">Park Name</th>
-                                <th scope="col">City</th>
+                                <th scope="col">Designation</th>
                                 <th scope="col">State</th>
                             </thead>
                             <tbody id="table-body">
@@ -69,12 +70,8 @@
             </div>
     </section>
    
-    <!-- Angolia JS -->
-    <script src="https://cdn.jsdelivr.net/npm/places.js@1.10.0"></script>
     <!-- National Park Service API -->
-    <script src="curl 'https://developer.nps.gov/api/v1/parks?parkCode=acad&api_key=q3aVXF4M4Hq6z0fi3Ithx6UFbnKa4aRIn45OIpKo'"></script>
-    <!-- MapQuest JS -->
-    <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
+    <!-- <script src="curl 'https://developer.nps.gov/api/v1/parks?parkCode=acad&api_key=q3aVXF4M4Hq6z0fi3Ithx6UFbnKa4aRIn45OIpKo'"></script> -->
     <!-- Our JS -->
     <script src="test_statecodes.js"></script>        
         
