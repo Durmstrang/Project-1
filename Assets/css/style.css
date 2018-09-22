@@ -9,3 +9,8 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.park-image {
+    width: 200px;
+    height: 150px;
+}

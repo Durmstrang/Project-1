@@ -225,19 +225,18 @@
             layers: L.mapquest.tileLayer('map'),
             zoom: 8
         }); map.addControl(L.mapquest.control());
-if (name) {
-        L.mapquest.textMarker([lat, long], {
- text: name,
- subtext: "Iconic coffeehouse chain",
- position: "right",
- type: "marker",
- icon: {
-   primaryColor: "#333333",
-   secondaryColor: "#333333",
-   size: "sm"
- }
-}).addTo(map)
-}
+            if (name) {
+            L.mapquest.textMarker([lat, long], {
+                text: name,
+                position: "right",
+                type: "marker",
+                icon: {
+                primaryColor: "#333333",
+                secondaryColor: "#333333",
+                size: "sm"
+            }
+            }).addTo(map)
+            }
     }
     
     $("#submitBtn").on("click", function(event) {
