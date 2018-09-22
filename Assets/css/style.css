@@ -15,7 +15,7 @@
     height: 150px;
 }
 
-.h1 {
+h1 {
     font-family: "Louize Display", Garamond, serif;
     font-size: 60px;
     font-style: normal;
@@ -26,7 +26,7 @@
     color: #373F3D;
     }
 
-.h2 {
+h2 {
         font-family: "GT Pressura Mono", "Roboto Mono", monospace;
         font-size: 28px;
         font-style: normal;
