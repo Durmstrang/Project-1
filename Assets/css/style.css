@@ -1,4 +1,5 @@
 .masthead {
+    font-family: font-family: 'Arvo', serif;
     position: relative;
     width: 100%;
     height: auto;
@@ -27,12 +28,12 @@ h1 {
     }
 
 h2 {
-        font-family: "GT Pressura Mono", "Roboto Mono", monospace;
-        font-size: 28px;
-        font-style: normal;
-        font-weight: 400;
-        letter-spacing: normal;
-        line-height: 28px;
-        text-transform: none;
-        color: #373F3D;
+    font-family: "GT Pressura Mono", "Roboto Mono", monospace;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: normal;
+    line-height: 28px;
+    text-transform: none;
+    color: #373F3D;
 }
