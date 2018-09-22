@@ -59,9 +59,19 @@ var stateCodes = [
     {value:"wy", name: "Wyoming", "data-lat": "42.755966", "data-long": "-107.302490", zoom: "map.setZoomLevel(6)"},
 ];
 
-var parkLat = ""
-var parkLong = ""
-var stateCode = stateCodes.value
+
+var newTags = {
+    stateCode: stateCodes.value,
+    parkLat: "",
+    parkLong: "",
+    newRow: $("<tr class='clickable' data-toggle='collapse'>"),
+    newTr: $("<tr><td>"),
+    newTd: $("<td>"),
+    targetDiv: $("<div class='collapse'>"),
+    newColumn: $("<th scope='col'>"),
+    newLink: $("<a target='#'>")
+}
+
 
 var npsAjaxCall = function() {
     var apiKey = "q3aVXF4M4Hq6z0fi3Ithx6UFbnKa4aRIn45OIpKo"
@@ -69,34 +79,74 @@ var npsAjaxCall = function() {
     $.ajax({
         url: queryURL,
         method: "GET"
+    })
+}
+
 
 // intialize page with 
-    // a map that center's on the user's current location
-    var geoLocation = function() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
-        } else {
-            console.log("Geolocation is not supported by this browser")
-        }
+// a map that center's on the user's current location
+var geoLocation = function() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        console.log("Geolocation is not supported by this browser")
     }
+}
 
-    // a dropdown menu of all the US states and territories (as well as starting lat, long and a zoom level to set the map to)
-    
+// a dropdown of US states and territories
+var fillDropdown = function () {
+    var stateForm = document.getElementById('stateSelection')
+    for (var i = 0; i < stateCodes.length; i++) {
+        var newOption = document.createElement('option')
+        newOption.text = newOption.value = stateCodes[i].name
+        console.log(newOption)
+        stateForm.add(newOption)
+    }
+};
 
-    // a submit button next to the dropdown
-    $("#submitBtn").on("click", function(event) {
-        event.preventDefault()
-        $("#table-body").empty()
-    
-        var stateLat =  $("#stateSelection option:selected").val("data-lat")
-        var stateLong =  $("#stateSelection option:selected").val("data-long")
-    
-        displayParks()
-        // // map.remove()
-        var mapDiv = $('<div id="map" style="width: 100%; height: 500px;">')
-        $("#map-home").append(mapDiv)
-        // loadMap(stateLat, stateLong)
-        })
+// and run this functions
+fillDropdown();    
+loadMap(41.26093905,-81.57116722);
+
+
+// a dropdown menu of all the US states and territories (as well as starting lat, long and a zoom level to set the map to)
+npsAjaxCall(response);
+for (var i = 0; i < response.data.length; i++) {
+    // define variables to call data from the response
+    var park = response.data[i]
+    var parkImage = park.images[0].url
+    var parkDescription = park.description
+    var parkDesignation = park.designation
+    var parkDirectionsURL = park.directionsUrl
+    var parkLink = park.url
+    var parkState = park.states
+    var parkName = park.fullName
+    var parkCode = park.parkCode
+
+    // build table
+    $("#table-body").append(newRow).append(parkName).append(parkDesignation).append(parkState);
+    $(parkName).append((newLink).attr("href=", parkLink))
+    $(targetDiv).append(newTr).append(newTd).attr("data-target","#"+ parkCode).append("<img class='park-image' src='" + parkImage + "'>")
+        .append("<div id='park-description'><h4>Description: </h4><p>" + parkDescription + "</p></div>")
+        .append("<a href='" + parkDirectionsURL +"' role='button' class='btn btn-success btn-sm' target='_blank'>Get Directions</a>")
+    $(targetDiv).attr("id", parkCode)
+}
+
+
+// a submit button next to the dropdown
+$("#submitBtn").on("click", function(event) {
+    event.preventDefault()
+    $("#table-body").empty()
+
+    var stateLat =  $("#stateSelection option:selected").val("data-lat")
+    var stateLong =  $("#stateSelection option:selected").val("data-long")
+
+    displayParks()
+    // // map.remove()
+    var mapDiv = $('<div id="map" style="width: 100%; height: 500px;">')
+    $("#map-home").append(mapDiv)
+    // loadMap(stateLat, stateLong)
+})
 
         // $("#submitBtn").on("click", function(event) {
         //     event.preventDefault()
@@ -113,98 +163,46 @@ var npsAjaxCall = function() {
         //     })
 
 // when the user chooses a state and clicks the submit button
-    // recenter the map on the chosen state/territory (set bounding box or zoom levels)
-    var loadMap = function(lat, long, name) {
-        L.mapquest.key = 'q3aVXF4M4Hq6z0fi3Ithx6UFbnKa4aRIn45OIpKo';
-        var map = L.mapquest.map('map', {
-            center: [lat, long],
-            layers: L.mapquest.tileLayer('map'),
-            zoom: 8
-        }); map.addControl(L.mapquest.control());
-    }
+// recenter the map on the chosen state/territory (set bounding box or zoom levels)
+var loadMap = function(lat, long, name) {
+    L.mapquest.key = 'q3aVXF4M4Hq6z0fi3Ithx6UFbnKa4aRIn45OIpKo';
+    var map = L.mapquest.map('map', {
+        center: [lat, long],
+        layers: L.mapquest.tileLayer('map'),
+        zoom: 8
+    }); map.addControl(L.mapquest.control());
+}
 
-    // populate a list of all of the parks in that state/territory in a table beneath the map
+// populate a list of all of the parks in that state/territory in a table beneath the map
 
-        // table should include park name, address, image, description, and link to the NPS webpage
+    // table should include park name, address, image, description, and link to the NPS webpage
 
-    // populate the map with markers for each of the parks
-    // split the lat and long apart from the data we get from the NPS ajax call
-    if (park.latLong) {
-        var firstSplit = park.latLong.split(", ")
-        parkLat = firstSplit[0].replace("lat:", "")
-        parkLong = firstSplit[1].replace("long:", "")
-        $(targetDiv).append("<br><button class='view-on-map' role='button' class='btn btn-success btn-lg'>VIEW ON MAP</a>")
-        $(".view-on-map").on("click", function() {
-            map.remove()
-            var mapDiv = $('<div id="map" style="width: 100%; height: 500px;">')
-            $("#map-home").append(mapDiv)
-            loadMap(parkLat, parkLong, parkName)
-        })
-    }
-    
-    // make a marker on the page based of off lat, long.    
-    // display park name next to marker
-    if (name) {
-        L.mapquest.textMarker([parkLat, parkLong], {
-            text: name,
-            position: "right",
-            type: "marker",
-            icon: {
-            primaryColor: "#333333",
-            secondaryColor: "#333333",
-            size: "sm"
-            }
-        }).addTo(map)
-    }
-        
-        var displayParks = function(para) {
-            var stateCode = para
-            var apiKey = "q3aVXF4M4Hq6z0fi3Ithx6UFbnKa4aRIn45OIpKo"
-            var queryURL = "http://api.nps.gov/api/v1/parks?stateCode=" + stateCode + "&fields=images" + "&api_key=" + apiKey
-            $.ajax({
-                url: queryURL,
-                method: "GET"
-            }).then(function(response) {
-                for (var i = 0; i < response.data.length; i++) {
-                    console.log(response)
-                    var newRow = $("<tr class='clickable' data-toggle='collapse'>")
-                    var newTr = $("<tr><td>")
-                    var newTd = $("<td>")
-                    var targetDiv = $("<div class='collapse'>")
-                    var park = response.data[i]
-                    var parkImage = park.images[0].url
-                    var parkDescription = park.description
-                    var parkDirections = park.directionsInfo
-                    console.log(parkDirections)
-                    var parkDirectionsURL = park.directionsUrl
-                    $("#table-body").append(newRow)
-                    $("#table-body").append(newTr)
-                    $(newTr).append(newTd)
-                    $(newTd).append(targetDiv)
-                    $(targetDiv).append("<img class='park-image' src='" + parkImage + "'>")
-                    $(targetDiv).append("<div id='park-description'><h4>Description: </h4><p>" + parkDescription + "</p></div>")
-                    $(targetDiv).append("<div id='park-directions'><h4>Directions: </h4><p>" + parkDirections + "</p></div>")
-                    $(targetDiv).append("<a href='" + parkDirectionsURL +"' role='button' class='btn btn-success btn-lg' target='_blank'>GET DIRECTIONS FROM NPS</a>")
-                    // <a href='" + parkDirectionsURL + "' role='button' class='btn btn-success'></div>")
-                    var newColumn = $("<th scope='col'>")
-                    $(newRow).append(newColumn)
-                    var newLink = $("<a>")
-                    $(newColumn).append(newLink)
-                    var parkLink = park.url
-                    newLink.attr("href", parkLink)
-                    var parkName = park.fullName
-                    var parkCode = park.parkCode
-                    $(newRow).attr("data-target","#"+ parkCode)
-                    $(targetDiv).attr("id", parkCode)
-                    $(newLink).append(parkName)
-                    var newColumn2 = $("<th scope='col'>")
-                    $(newRow).append(newColumn2)
-                    var parkDesignation = park.designation
-                    $(newColumn2).append(parkDesignation)
-                    var newColumn3 = $("<th scope='col'>")
-                    $(newRow).append(newColumn3)
-                    var parkState = park.states
-                    $(newColumn3).append(parkState)
-                }
-            })
+// populate the map with markers for each of the parks
+// split the lat and long apart from the data we get from the NPS ajax call
+if (park.latLong) {
+    var firstSplit = park.latLong.split(", ")
+    parkLat = firstSplit[0].replace("lat:", "")
+    parkLong = firstSplit[1].replace("long:", "")
+    $(targetDiv).append("<br><button class='view-on-map' role='button' class='btn btn-success btn-lg'>VIEW ON MAP</a>")
+    $(".view-on-map").on("click", function() {
+        map.remove()
+        var mapDiv = $('<div id="map" style="width: 100%; height: 500px;">')
+        $("#map-home").append(mapDiv)
+        loadMap(parkLat, parkLong, parkName)
+    })
+}
+
+// make a marker on the page based of off lat, long.    
+// display park name next to marker
+if (name) {
+    L.mapquest.textMarker([parkLat, parkLong], {
+        text: name,
+        position: "right",
+        type: "marker",
+        icon: {
+        primaryColor: "#333333",
+        secondaryColor: "#333333",
+        size: "sm"
         }
+    }).addTo(map)
+}
