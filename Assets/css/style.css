@@ -38,3 +38,18 @@ h1 {
         text-transform: none;
         color: #373F3D;
 }
+
+#map {
+    width: 100%; 
+    height: 500px;
+}
+
+hr {
+    width: 75%;
+}
+
+.text-marker-tooltip {
+    color: brown;
+    outline: white 0.01em;
+    font-size: 18px;
+}
