@@ -11,6 +11,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     font-family: 'Arvo', serif;
+    color: black;
 }
 
 .park-image {
@@ -34,13 +35,30 @@ h5 {
 }
 
 p {
+    color: black;
+}
 
+a.directions:link,
+a.directions:visited,
+a.directions:hover,
+a.directions:active {
+    color: white;
+}
+
+a.parkPage:link,
+a.parkPage:visited,
+a.parkPage:hover,
+a.parkPage:active {
+    color: black;
 }
 
 hr {
     width: 75%;
 }
 
+.park-image {
+    border: 2px solid lightgrey;
+}
 
 /* not sure what this is, a test maybe? */
 #cana {

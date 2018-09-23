@@ -18,12 +18,11 @@ function addMapBtn(park, targetDiv, parkName) {
         var firstSplit = park.latLong.split(", ")
         parkLat = firstSplit[0].replace("lat:", "")
         parkLong = firstSplit[1].replace("long:", "")
-        
         // Use jQuery to create a button for the user to view and specific park on the map
         // Take predefined jQuery button and attach attributes for each park
         button.attr("data-lat", parkLat).attr("data-long", parkLong).attr("data-name", parkName).attr("class", "btn btn-success btn-lg view-on-map").attr("role", "button");
         // Add text to the button
-        button.text("Map it");
+        button.text("Map it")
         // Appends and button to the target div        
         $(targetDiv).append(button)
         // $(targetDiv).append("<br><button data-lat="+parkLat+" data-long="+parkLong+" data-name="+parkName+" class='view-on-map' role='button' class='btn btn-success btn-lg'>VIEW ON MAP</button>")
@@ -81,15 +80,21 @@ function createTable() {
         var subRow = $("<tr><td>")
         var newTd = $("<td>")
         var targetDiv = $("<div class='collapse'>")
-        var newH5 = $("<h5>");
-        var newP = $("<p>");
-        var newA = $("<a>");
+        var newBtn = $("<button role='button' class='btn btn-success btn-lg'>")
         // variables to define the park data pulled from temporary object "obj"
         var park = obj.parks[i]
         var parkImage;
         var parkDescription = park.description
-        var parkDirections = park.directionsInfo
         var parkDirectionsURL = park.directionsUrl
+        var parkDesignation = park.designation
+        var parkName = park.fullName
+        var parkCode = park.parkCode
+        var parkState = park.states
+        var newColumn = $("<th scope='col'>")
+        var newColumn2 = $("<th scope='col'>")
+        var newColumn3 = $("<th scope='col'>")
+        var newLink = $("<a>")
+        var parkLink = park.url
 
         // Create a new table row for each park in the API response array
         // var newRow = $("<tr class='clickable' data-toggle='collapse'>");
@@ -106,42 +111,31 @@ function createTable() {
             $(targetDiv).append("<img class='park-image' src='Assets/img/imageUnavailable.svg'>")
         }
 
-        // BE CAREFUL WITH THIS LINE--START HERE!
-        $(targetDiv).append("<div id='park-description'><h5>Description: </h5><p>" + parkDescription + "</p></div>").append("<div id='park-directions'><h5>Directions: </h5><p>" + parkDirections + "</p></div>").append("<a href='" + parkDirectionsURL +"' role='button' class='btn btn-success btn-lg' target='_blank'>GET DIRECTIONS FROM NPS</a>")
-        // <a href='" + parkDirectionsURL + "' role='button' class='btn btn-success'></div>")
-        var newColumn = $("<th scope='col'>")
-        $(newRow).append(newColumn)
-        var newLink = $("<a>")
-        $(newColumn).append(newLink)
-        var parkLink = park.url
-        newLink.attr("href", parkLink)
-        var parkName = park.fullName
-        var parkCode = park.parkCode
-        $(newRow).attr("data-target","#"+ parkCode).append(newColumn2).append(newColumn3)
+        // Add park description to the collapsible targetDiv element
+        $(targetDiv).append("<div id='park-description'><h5>Description: </h5><p>" + parkDescription + "</p></div>")
+        // Add 'Get Directions' button to the same targetDiv and have it open the directions in a new tab
+        $(newBtn).append("<a href='" + parkDirectionsURL + "' target='_blank' class='directions'>Get Directions</a>")
+        $(targetDiv).append(newBtn)
+        // add the parkCode as the targetDiv's ID
         $(targetDiv).attr("id", parkCode)
+        // Assign park's name to the newLink (a tag)
         $(newLink).append(parkName)
-        var newColumn2 = $("<th scope='col'>")
-        var parkDesignation = park.designation
+        // Assign the the park's url to the href, a class of parkPage to use in the CSS, and have the link open in a new browser tab when clicked
+        newLink.attr("href", parkLink).attr("target", "_blank").attr("class", "parkPage")
+        // append the newLink to a newColumn in the newRow of the table
+        $(newColumn).append(newLink)
+        // append the parks' designation to column 2 and the state(s) the park is in to column 3
         $(newColumn2).append(parkDesignation)
-        var newColumn3 = $("<th scope='col'>")
-        var parkState = park.states
         $(newColumn3).append(parkState)
-        // 
+        // append all three columns to the newRow
+        $(newRow).append(newColumn).append(newColumn2).append(newColumn3)
+        // add data-target id of parkCode to the newRow
+        $(newRow).attr("data-target","#"+ parkCode)        
+        // call the addMapBtn that plots the marker on the new map
         addMapBtn(park, targetDiv, parkName)
     }
 }
 
-
-
-
-// HTML 5 geolocation code - yet to be implemented as of 9/19
-var geoLocation = function() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-        console.log("Geolocation is not supported by this browser")
-    }
-}
 
 // Function for initializing mapquest map based on lat, long into the #map div
 var loadMap = function(lat, long, name) {
@@ -166,22 +160,33 @@ var loadMap = function(lat, long, name) {
 }
 
 $("#submitBtn").on("click", function(event) {
-    event.preventDefault()
-    $("#table-body").empty()
     var y = $("#stateSelection option:selected").val();
     var stateLat =  $("#stateSelection option:selected").attr("data-lat")
     var stateLong =  $("#stateSelection option:selected").attr("data-long")
-    // console.log(y)
-    // console.log(stateLat)
-    // console.log(stateLong)
+    // prevent the browse default
+    event.preventDefault()
+    // empty the table body element
+    $("#table-body").empty()
+    // run the displayParks function for the state/territory that was selected
     displayParks(y)
+    // remove the current map
     map.remove()
+    // add a new map in it's place and append it to the map-home ID in the HTML
     var mapDiv = $('<div id="map" style="width: 100%; height: 500px;">')
     $("#map-home").append(mapDiv)
+    // load the new map centering on the values of stateLat and stateLong
     loadMap(stateLat, stateLong)
     })
 
-// Initial Load
-    
+
+// On initial load, center the map Cleveland's lat and long
     loadMap(41.26093905,-81.57116722)
-    
+
+        // HTML 5 geolocation code -- we're not using this currently, we're using the Cleveland coordinates above
+        // var geoLocation = function() {
+        //     if (navigator.geolocation) {
+        //         navigator.geolocation.getCurrentPosition(showPosition);
+        //     } else {
+        //         console.log("Geolocation is not supported by this browser")
+        //     }
+        // }
