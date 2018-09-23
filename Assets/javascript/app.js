@@ -81,6 +81,9 @@ function createTable() {
         var subRow = $("<tr><td>")
         var newTd = $("<td>")
         var targetDiv = $("<div class='collapse'>")
+        var newH5 = $("<h5>");
+        var newP = $("<p>");
+        var newA = $("<a>");
         // variables to define the park data pulled from temporary object "obj"
         var park = obj.parks[i]
         var parkImage;
@@ -103,8 +106,8 @@ function createTable() {
             $(targetDiv).append("<img class='park-image' src='Assets/img/imageUnavailable.svg'>")
         }
 
-        // BE CAREFUL WITH THIS LINE!
-        $(targetDiv).append("<div id='park-description'><h4>Description: </h4><p>" + parkDescription + "</p></div>").append("<div id='park-directions'><h4>Directions: </h4><p>" + parkDirections + "</p></div>").append("<a href='" + parkDirectionsURL +"' role='button' class='btn btn-success btn-lg' target='_blank'>GET DIRECTIONS FROM NPS</a>")
+        // BE CAREFUL WITH THIS LINE--START HERE!
+        $(targetDiv).append("<div id='park-description'><h5>Description: </h5><p>" + parkDescription + "</p></div>").append("<div id='park-directions'><h5>Directions: </h5><p>" + parkDirections + "</p></div>").append("<a href='" + parkDirectionsURL +"' role='button' class='btn btn-success btn-lg' target='_blank'>GET DIRECTIONS FROM NPS</a>")
         // <a href='" + parkDirectionsURL + "' role='button' class='btn btn-success'></div>")
         var newColumn = $("<th scope='col'>")
         $(newRow).append(newColumn)
