@@ -24,7 +24,7 @@ function addMapBtn(park, targetDiv, parkName) {
         // Add text to the button
         button.text("Map it")
         // Appends and button to the target div        
-        $(targetDiv).append(button)
+        $(targetDiv).append(button).append(br)
         // $(targetDiv).append("<br><button data-lat="+parkLat+" data-long="+parkLong+" data-name="+parkName+" class='view-on-map' role='button' class='btn btn-success btn-lg'>VIEW ON MAP</button>")
     }      
 }
@@ -55,7 +55,6 @@ $("body").on("click", ".view-on-map", addMarker)
 // Function to run AJAX call to NPS.gov and gather the park data
 var displayParks = function(ST) {
     var stateCode = ST
-    console.log(ST)
     var apiKey = "q3aVXF4M4Hq6z0fi3Ithx6UFbnKa4aRIn45OIpKo"
     var queryURL = "http://api.nps.gov/api/v1/parks?stateCode=" +stateCode + "&fields=images" + "&api_key=" + apiKey
     // AJAX request to get info from NPS API
@@ -77,7 +76,7 @@ function createTable() {
     for (var i = 0; i < obj.parks.length; i++) {
         // variables to create new HTML elements in the DOM
         var newRow = $("<tr>");
-        var subRow = $("<tr><td>")
+        // var subRow = $("<tr><td>")
         var newTd = $("<td>")
         var targetDiv = $("<div class='collapse'>")
         var newBtn = $("<button role='button' class='btn btn-success btn-lg'>")
@@ -99,26 +98,16 @@ function createTable() {
         // Create a new table row for each park in the API response array
         // var newRow = $("<tr class='clickable' data-toggle='collapse'>");
         newRow.addClass("clickable").attr("data-toggle", "collapse");
-        console.log(newRow)
-        // add new row to the table and append the subRow to it
-        $("#table-body").append(newRow).append(subRow)
-        // add collapsible targetDive and new table data tag to the subRow
-        $(subRow).append(newTd).append(targetDiv)
+        // add new row and table data to the targetDiv and append to the div with the table-body ID
+        $("#table-body").append(newRow).append(newTd).append(targetDiv)
         if (park.images.length > 0 ) {
             parkImage = park.images[0].url
-        $(targetDiv).append("<img class='park-image' src='" + parkImage + "'>")
+            $(targetDiv).append("<img class='park-image' src='" + parkImage + "'>")
         } else {
             $(targetDiv).append("<img class='park-image' src='Assets/img/imageUnavailable.svg'>")
         }
 
-        // Add park description to the collapsible targetDiv element
-        $(targetDiv).append("<div id='park-description'><h5>Description: </h5><p>" + parkDescription + "</p></div>")
-        // Add 'Get Directions' button to the same targetDiv and have it open the directions in a new tab
-        $(newBtn).append("<a href='" + parkDirectionsURL + "' target='_blank' class='directions'>Get Directions</a>")
-        $(targetDiv).append(newBtn)
-        // add the parkCode as the targetDiv's ID
-        $(targetDiv).attr("id", parkCode)
-        // Assign park's name to the newLink (a tag)
+        
         $(newLink).append(parkName)
         // Assign the the park's url to the href, a class of parkPage to use in the CSS, and have the link open in a new browser tab when clicked
         newLink.attr("href", parkLink).attr("target", "_blank").attr("class", "parkPage")
@@ -130,7 +119,15 @@ function createTable() {
         // append all three columns to the newRow
         $(newRow).append(newColumn).append(newColumn2).append(newColumn3)
         // add data-target id of parkCode to the newRow
-        $(newRow).attr("data-target","#"+ parkCode)        
+        $(newRow).attr("data-target","#"+ parkCode)    
+        // Add park description to the collapsible targetDiv element
+        $(targetDiv).append("<div id='park-description'><h5>Description: </h5><p>" + parkDescription + "</p></div>")
+        // Add 'Get Directions' button to the same targetDiv and have it open the directions in a new tab
+        $(newBtn).append("<a href='" + parkDirectionsURL + "' target='_blank' class='directions'>Get Directions</a>")
+        $(targetDiv).append(newBtn)
+        // add the parkCode as the targetDiv's ID
+        $(targetDiv).attr("id", parkCode)
+        // Assign park's name to the newLink (a tag)    
         // call the addMapBtn that plots the marker on the new map
         addMapBtn(park, targetDiv, parkName)
     }
@@ -156,7 +153,7 @@ var loadMap = function(lat, long, name) {
             size: "sm"
         }
         }).addTo(map)
-        }
+    }
 }
 
 $("#submitBtn").on("click", function(event) {
