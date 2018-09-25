@@ -25,7 +25,6 @@ function addMapBtn(park, targetDiv, parkName) {
         button.text("Map it")
         // Appends and button to the target div        
         $(targetDiv).append(button).append(br)
-        // $(targetDiv).append("<br><button data-lat="+parkLat+" data-long="+parkLong+" data-name="+parkName+" class='view-on-map' role='button' class='btn btn-success btn-lg'>VIEW ON MAP</button>")
     }      
 }
 
@@ -69,6 +68,21 @@ var displayParks = function(ST) {
     })
 }
 
+// GET WEATHER DATA FROM OpenWeatherMaps API
+
+function getWeather(lat, lon, targetDiv) {
+    var weatherKey = "3030d802c0a765839ca208f55d3af7b0";
+
+    var weatherQuery = "https://api.openweathermap.org/data/2.5/weather?units=imperial&lat=" + lat + "&lon=" + lon + "&appid=" + weatherKey;
+
+    $.ajax({
+        url: weatherQuery,
+        method: "GET"
+    }).then(function(w) {
+        $(targetDiv).prepend("<br><tr><h4> Current Temp (F) in " + w.name + " is:  " + w.main.temp)
+    })
+}
+
 
 // SHOW PARK DATA FOR THE STATE/TERRITORY IN THE TABLE BELOW THE MAP-----------------------------------------------------------
 // Function to populate the table beneath the map with park data for the selected state
@@ -93,8 +107,16 @@ function createTable() {
         var parkCode = park.parkCode
         var parkState = park.states
         var parkLink = park.url
+        // if loop to separate pLat and pLong when it exists
+        if (park.latLong) {                      
+            var fSplit = park.latLong.split(", ")
+            pLat = fSplit[0].replace("lat:", "")
+            pLong = fSplit[1].replace("long:", "")
+            getWeather(pLat, pLong, targetDiv)
+        } else {
+            console.log("Weather information for this park is currently unavailable")
+        }
         // Create a new table row for each park in the API response array
-        // var newRow = $("<tr class='clickable' data-toggle='collapse'>");
         newRow.addClass("clickable").attr("data-toggle", "collapse");
         // add new row and table data to the targetDiv and append to the div with the table-body ID
         $("#table-body").append(newRow).append(newTd).append(targetDiv)
@@ -118,13 +140,14 @@ function createTable() {
         $(newRow).attr("data-target","#"+ parkCode) 
         // Add park description to the collapsible targetDiv element
         $(targetDiv).append("<div id='park-description'><h5>Description: </h5><p>" + parkDescription + "</p></div>")
+        
         // Add 'Get Directions' button to the same targetDiv and have it open the directions in a new tab
         $(newBtn).append("<a href='" + parkDirectionsURL + "' target='_blank' class='directions'>Get Directions</a>")
         $(targetDiv).append(newBtn)
         // add the parkCode as the targetDiv's ID
         $(targetDiv).attr("id", parkCode)
         // call the addMapBtn that plots the marker on the new map
-        addMapBtn(park, targetDiv, parkName)  
+        addMapBtn(park, targetDiv, parkName)
     }
 }
 
@@ -174,12 +197,3 @@ $("#submitBtn").on("click", function(event) {
 
 // On initial load, center the map Cleveland's lat and long
     loadMap(41.26093905,-81.57116722)
-
-        // HTML 5 geolocation code -- we're not using this currently, we're using the Cleveland coordinates above
-        // var geoLocation = function() {
-        //     if (navigator.geolocation) {
-        //         navigator.geolocation.getCurrentPosition(showPosition);
-        //     } else {
-        //         console.log("Geolocation is not supported by this browser")
-        //     }
-        // }
