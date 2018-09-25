@@ -1,3 +1,4 @@
+/* BODY AND TABLE STUFF */
 .masthead {
     font-family: 'Arvo', serif;
     position: relative;
@@ -5,16 +6,8 @@
     height: auto;
     min-height: 35 rem;
     padding: 15 rem;
-    background: url("Assets/img/park-bg.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
     font-family: 'Arvo', serif;
-}
-
-.park-image {
-    width: 200px;
-    height: 150px;
+    color: black;
 }
 
 h1 {
@@ -28,13 +21,76 @@ h1 {
     color: #373F3D;
     }
 
+h5 {
+    font-family: "Louize Display", Garamond, serif;
+}
+
+p {
+    color: black;
+}
+
+a.directions:link,
+a.directions:visited,
+a.directions:hover,
+a.directions:active {
+    color: white;
+}
+
+a.parkPage:link,
+a.parkPage:visited,
+a.parkPage:hover,
+a.parkPage:active {
+    color: black;
+}
+
+hr {
+    width: 75%;
+}
+
+.park-image {
+    width: 200px;
+    height: 150px;
+    margin-left: 15px;
+    margin-right: 75px;
+    float: left;
+    border: 2px solid lightgrey;
+}
+
+#park-directions, #park-description {
+    font-size: 10pt;
+}
+
+#selectStateText {
+    font-size: 14pt;
+    font-weight: bold;
+}
+
+.view-on-map {
+    margin: 20px;
+}
+
+
+/* not sure what this is, a test maybe? */
 #cana {
-        font-family: "GT Pressura Mono", "Roboto Mono", monospace;
-        font-size: 28px;
-        font-style: normal;
-        font-weight: 400;
-        letter-spacing: normal;
-        line-height: 28px;
-        text-transform: none;
-        color: #373F3D;
+    font-family: "GT Pressura Mono", "Roboto Mono", monospace;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: normal;
+    line-height: 28px;
+    text-transform: none;
+    color: #373F3D;
+}
+
+
+/* MAP STUFF */
+#map {
+    width: 100%; 
+    height: 500px;
+}
+
+.text-marker-tooltip {
+    color: brown;
+    outline: white 0.01em;
+    font-size: 18px;
 }
