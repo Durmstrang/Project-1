@@ -76,10 +76,13 @@ function createTable() {
     for (var i = 0; i < obj.parks.length; i++) {
         // variables to create new HTML elements in the DOM
         var newRow = $("<tr>");
-        // var subRow = $("<tr><td>")
         var newTd = $("<td>")
         var targetDiv = $("<div class='collapse'>")
         var newBtn = $("<button role='button' class='btn btn-success btn-lg'>")
+        var newColumn = $("<th scope='col'>")
+        var newColumn2 = $("<th scope='col'>")
+        var newColumn3 = $("<th scope='col'>")
+        var newLink = $("<a>")
         // variables to define the park data pulled from temporary object "obj"
         var park = obj.parks[i]
         var parkImage;
@@ -89,12 +92,7 @@ function createTable() {
         var parkName = park.fullName
         var parkCode = park.parkCode
         var parkState = park.states
-        var newColumn = $("<th scope='col'>")
-        var newColumn2 = $("<th scope='col'>")
-        var newColumn3 = $("<th scope='col'>")
-        var newLink = $("<a>")
         var parkLink = park.url
-
         // Create a new table row for each park in the API response array
         // var newRow = $("<tr class='clickable' data-toggle='collapse'>");
         newRow.addClass("clickable").attr("data-toggle", "collapse");
@@ -102,24 +100,22 @@ function createTable() {
         $("#table-body").append(newRow).append(newTd).append(targetDiv)
         if (park.images.length > 0 ) {
             parkImage = park.images[0].url
-            $(targetDiv).append("<img class='park-image' src='" + parkImage + "'>")
+            $(targetDiv).append(newTd).append("<img class='park-image' src='" + parkImage + "'>")
         } else {
-            $(targetDiv).append("<img class='park-image' src='Assets/img/imageUnavailable.svg'>")
+            $(targetDiv).append(newTd).append("<img class='park-image' src='Assets/img/imageUnavailable.svg'>")
         }
 
-        
-        $(newLink).append(parkName)
         // Assign the the park's url to the href, a class of parkPage to use in the CSS, and have the link open in a new browser tab when clicked
         newLink.attr("href", parkLink).attr("target", "_blank").attr("class", "parkPage")
-        // append the newLink to a newColumn in the newRow of the table
-        $(newColumn).append(newLink)
+        // append the parkName to the newLink, then append both to a newColumn element
+        $(newColumn).append(newLink).append(parkName)
         // append the parks' designation to column 2 and the state(s) the park is in to column 3
         $(newColumn2).append(parkDesignation)
         $(newColumn3).append(parkState)
         // append all three columns to the newRow
         $(newRow).append(newColumn).append(newColumn2).append(newColumn3)
         // add data-target id of parkCode to the newRow
-        $(newRow).attr("data-target","#"+ parkCode)    
+        $(newRow).attr("data-target","#"+ parkCode) 
         // Add park description to the collapsible targetDiv element
         $(targetDiv).append("<div id='park-description'><h5>Description: </h5><p>" + parkDescription + "</p></div>")
         // Add 'Get Directions' button to the same targetDiv and have it open the directions in a new tab
@@ -127,14 +123,13 @@ function createTable() {
         $(targetDiv).append(newBtn)
         // add the parkCode as the targetDiv's ID
         $(targetDiv).attr("id", parkCode)
-        // Assign park's name to the newLink (a tag)    
         // call the addMapBtn that plots the marker on the new map
-        addMapBtn(park, targetDiv, parkName)
+        addMapBtn(park, targetDiv, parkName)  
     }
 }
 
 
-// Function for initializing mapquest map based on lat, long into the #map div
+// Function for initializing leaflet map based on lat, long into the #map div
 var loadMap = function(lat, long, name) {
     L.mapquest.key = 'q3aVXF4M4Hq6z0fi3Ithx6UFbnKa4aRIn45OIpKo';
     var map = L.mapquest.map('map', {
@@ -156,6 +151,7 @@ var loadMap = function(lat, long, name) {
     }
 }
 
+// When the user clicks the submit button,
 $("#submitBtn").on("click", function(event) {
     var y = $("#stateSelection option:selected").val();
     var stateLat =  $("#stateSelection option:selected").attr("data-lat")
