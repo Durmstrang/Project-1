@@ -93,9 +93,9 @@ function createTable() {
     for (var i = 0; i < obj.parks.length; i++) {
         // variables to create new HTML elements in the DOM
         var newRow = $("<tr class='text-center'>");
-        var newTd = $("<td class='text-center'>")
+        var newTd = $("<td>")
         var targetDiv = $("<div class='collapse'>")
-        var newBtn = $("<button role='button' class='btn btn-success btn-lg'>")
+        var newBtn = $("<button role='button' class='btn btn-info btn-lg'>")
         var newColumn = $("<th scope='col'>")
         var newColumn2 = $("<th scope='col'>")
         var newColumn3 = $("<th scope='col'>")
@@ -133,7 +133,8 @@ function createTable() {
         // Assign the the park's url to the href, a class of parkPage to use in the CSS, and have the link open in a new browser tab when clicked
         newLink.attr("href", parkLink).attr("target", "_blank").attr("class", "parkPage")
         // append the parkName to the newLink, then append both to a newColumn element
-        $(newColumn).append(newLink).append(parkName)
+        $(newColumn).append(newLink)
+        $(newLink).append(parkName)
         // append the parks' designation to column 2 and the state(s) the park is in to column 3
         $(newColumn2).append(parkDesignation)
         $(newColumn3).append(parkState)
@@ -180,6 +181,7 @@ var loadMap = function(lat, long, name) {
 // When the user clicks the submit button,
 $("#submitBtn").on("click", function(event) {
     var y = $("#stateSelection option:selected").val();
+    var z = y.toUpperCase()
     var stateLat =  $("#stateSelection option:selected").attr("data-lat")
     var stateLong =  $("#stateSelection option:selected").attr("data-long")
     // prevent the browse default
@@ -193,6 +195,8 @@ $("#submitBtn").on("click", function(event) {
     // add a new map in it's place and append it to the map-home ID in the HTML
     var mapDiv = $('<div id="map" style="width: 100%; height: 500px;">')
     $("#map-home").append(mapDiv)
+    // update span to print state chosen
+    $("#location-query").html(z)
     // load the new map centering on the values of stateLat and stateLong
     loadMap(stateLat, stateLong)
     })
