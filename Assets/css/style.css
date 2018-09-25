@@ -6,10 +6,6 @@
     height: auto;
     min-height: 35 rem;
     padding: 15 rem;
-    background: url("Assets/img/park-bg.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
     font-family: 'Arvo', serif;
     color: black;
 }
@@ -54,6 +50,8 @@ hr {
 .park-image {
     width: 200px;
     height: 150px;
+    margin-left: 15px;
+    margin-right: 75px;
     float: left;
     border: 2px solid lightgrey;
 }

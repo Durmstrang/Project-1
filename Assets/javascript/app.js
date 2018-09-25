@@ -54,7 +54,10 @@ $("body").on("click", ".view-on-map", addMarker)
 // Function to run AJAX call to NPS.gov and gather the park data
 var displayParks = function(ST) {
     var stateCode = ST
-    var apiKey = "q3aVXF4M4Hq6z0fi3Ithx6UFbnKa4aRIn45OIpKo"
+    // initial first api key that started having errors
+    // var apiKey = "q3aVXF4M4Hq6z0fi3Ithx6UFbnKa4aRIn45OIpKo"
+    // new apikey as of 9-25
+    var apiKey = "AHxYpzNIdier9Velo2UerDKo7wSmswmujiAOecJt"
     var queryURL = "http://api.nps.gov/api/v1/parks?stateCode=" +stateCode + "&fields=images" + "&api_key=" + apiKey
     // AJAX request to get info from NPS API
     $.ajax({
@@ -79,7 +82,7 @@ function getWeather(lat, lon, targetDiv) {
         url: weatherQuery,
         method: "GET"
     }).then(function(w) {
-        $(targetDiv).prepend("<br><tr><h4> Current Temp (F) in " + w.name + " is:  " + w.main.temp)
+        $(targetDiv).prepend("<br><h5 class='text-center'> Current Temp (F) in " + w.name + " is:  <strong>" + w.main.temp + " F</strong>")
     })
 }
 
@@ -89,8 +92,8 @@ function getWeather(lat, lon, targetDiv) {
 function createTable() {
     for (var i = 0; i < obj.parks.length; i++) {
         // variables to create new HTML elements in the DOM
-        var newRow = $("<tr>");
-        var newTd = $("<td>")
+        var newRow = $("<tr class='text-center'>");
+        var newTd = $("<td class='text-center'>")
         var targetDiv = $("<div class='collapse'>")
         var newBtn = $("<button role='button' class='btn btn-success btn-lg'>")
         var newColumn = $("<th scope='col'>")
