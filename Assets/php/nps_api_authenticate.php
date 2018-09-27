@@ -9,5 +9,4 @@ curl_setopt_array($curl, array(
     CURLOPT_USERAGENT => $_SERVER['HTTP_USER_AGENT'],
     CURLOPT_HTTPHEADER => array('Authorization: AHxYpzNIdier9Velo2UerDKo7wSmswmujiAOecJt')
     ));
-// Additional code would follow
 ?>

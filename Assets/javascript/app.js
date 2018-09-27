@@ -54,11 +54,9 @@ $("body").on("click", ".view-on-map", addMarker)
 // Function to run AJAX call to NPS.gov and gather the park data
 var displayParks = function(ST) {
     var stateCode = ST
-    // initial first api key that started having errors
-    // var apiKey = "q3aVXF4M4Hq6z0fi3Ithx6UFbnKa4aRIn45OIpKo"
-    // new apikey as of 9-25
+    // new apikey as of 9-25 (old one was causing errors)
     var apiKey = "AHxYpzNIdier9Velo2UerDKo7wSmswmujiAOecJt"
-    var queryURL = "http://api.nps.gov/api/v1/parks?stateCode=" +stateCode + "&fields=images" + "&api_key=" + apiKey
+    var queryURL = "https://api.nps.gov/api/v1/parks?fields=images&api_key=" + apiKey + "stateCode=" + stateCode + ""
     // AJAX request to get info from NPS API
     $.ajax({
         url: queryURL,
@@ -70,20 +68,6 @@ var displayParks = function(ST) {
         createTable()   
     })
 }
-
-// <?php
-// // Get cURL resource
-// $curl = curl_init();
-// // Set options
-// $dataURL = 'https://developer.nps.gov/api/v1/parks?stateCode=me';
-// curl_setopt_array($curl, array(
-//     CURLOPT_RETURNTRANSFER =--> true,
-//     CURLOPT_URL => $dataURL,
-//     CURLOPT_USERAGENT => $_SERVER['HTTP_USER_AGENT'],
-//     CURLOPT_HTTPHEADER => array('Authorization: AHxYpzNIdier9Velo2UerDKo7wSmswmujiAOecJt')
-//     ));
-// // Additional code would follow
-// ?>
 
 // GET WEATHER DATA FROM OpenWeatherMaps API
 
