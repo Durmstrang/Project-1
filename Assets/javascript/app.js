@@ -56,7 +56,7 @@ var displayParks = function(ST) {
     var stateCode = ST
     // new apikey as of 9/25/18 (old one was causing errors)
     var apiKey = "AHxYpzNIdier9Velo2UerDKo7wSmswmujiAOecJt"
-    var queryURL = "http://api.nps.gov/api/v1/parks?stateCode=" +stateCode + "&fields=images" + "&api_key=" + apiKey
+    var queryURL = "https://api.nps.gov/api/v1/parks?stateCode=" +stateCode + "&fields=images" + "&api_key=" + apiKey
     // AJAX request to get info from NPS API
     $.ajax({
         url: queryURL,
